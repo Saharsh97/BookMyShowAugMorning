@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.bookmyshowaugmorning.models.enums.ShowSeatStatus;
 
+import java.util.Date;
+
 // contains all the attributes for the combination of
 // show and a seat.
 // Mapping table.
@@ -22,4 +24,7 @@ public class ShowSeat extends BaseModel {
 
     @Enumerated
     private ShowSeatStatus status;
+
+    private Date lockedAt;  // help me in maintaining the Blocking status
+    // and changing it back to available if needed.
 }

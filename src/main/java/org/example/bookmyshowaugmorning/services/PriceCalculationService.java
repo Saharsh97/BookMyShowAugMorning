@@ -31,15 +31,15 @@ public class PriceCalculationService {
                 throw new ShowSeatTypeNotFoundException("Show Seat Type doesn't exist");
             }
             ShowSeatType showSeatType = optionalShowSeatType.get();
-            totalAmount += showSeatType.getPrice();
+            totalAmount += showSeatType.getPrice(); // base price
         }
-        totalAmount += applyExtraCostForLateNightShows(show, totalAmount);
+        totalAmount += applyExtraCostForLateNightShow(show, totalAmount);
         totalAmount += addChargesForUrgentBooking(show, totalAmount);
         // n number of charges and so on...
         return totalAmount;
     }
 
-    private int applyExtraCostForLateNightShows(Show show, int basePrice) {
+    private int applyExtraCostForLateNightShow(Show show, int basePrice) {
         return 0;
     }
 

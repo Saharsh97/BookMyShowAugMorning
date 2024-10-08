@@ -22,6 +22,7 @@ public class Booking extends BaseModel {
 
     @OneToMany
     private List<ShowSeat> showSeats;
+
     private int totalAmount;
 
     @OneToMany

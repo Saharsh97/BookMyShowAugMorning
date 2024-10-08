@@ -1,9 +1,6 @@
 package org.example.bookmyshowaugmorning.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,9 @@ public class Seat extends BaseModel{
     @ManyToOne
     private SeatType seatType;
 
+    @Column(name = "row_num")
     private int rowNumber;
+
+    @Column(name = "col_num")
     private int columnNumber;
 }

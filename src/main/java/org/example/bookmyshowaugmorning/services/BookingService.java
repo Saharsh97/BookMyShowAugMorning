@@ -100,8 +100,7 @@ public class BookingService {
             showSeat.setLockedAt(new Date());
             showSeat.setStatus(ShowSeatStatus.BLOCKED);
         }
-        showSeatRepository.save(showSeats);
-
+        List<ShowSeat> blockedShowSeats = showSeatRepository.save(showSeats);
 
         // write Price logic over here.
         // same logic in a lot of places
@@ -109,14 +108,14 @@ public class BookingService {
         // PriceCalculationService -> single place that has the logic for pricing.
         // 7. get the total amount
 
-        int totalAmount = priceCalculationService.getTotalAmount(show, showSeats);
+        int totalAmount = priceCalculationService.getTotalAmount(show, blockedShowSeats);
 
         // 8. create the booking object, fill all the attributes.
         // create a booking Summary
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setShow(show);
-        booking.setShowSeats(showSeats);
+        booking.setShowSeats(blockedShowSeats);
         booking.setTotalAmount(totalAmount);
         booking.setBookedAt(new Date());
         booking.setPayments(new ArrayList<>());

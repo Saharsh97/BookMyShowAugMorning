@@ -27,4 +27,15 @@ public class ShowSeat extends BaseModel {
 
     private Date lockedAt;  // help me in maintaining the Blocking status
     // and changing it back to available if needed.
+
+    public ShowSeat(ShowSeat showSeat) {
+        this.show = showSeat.getShow();
+        this.seat = showSeat.getSeat();
+        this.status = showSeat.getStatus();
+        this.lockedAt = showSeat.getLockedAt();
+    }
+
+    public ShowSeat() {
+
+    }
 }

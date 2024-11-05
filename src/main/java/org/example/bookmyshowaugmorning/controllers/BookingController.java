@@ -3,6 +3,10 @@ package org.example.bookmyshowaugmorning.controllers;
 import org.example.bookmyshowaugmorning.controllers.dtos.CreateBookingRequestDTO;
 import org.example.bookmyshowaugmorning.controllers.dtos.CreateBookingResponseDTO;
 import org.example.bookmyshowaugmorning.controllers.enums.ResponseStatus;
+import org.example.bookmyshowaugmorning.exceptions.SeatAlreadyBookedException;
+import org.example.bookmyshowaugmorning.exceptions.ShowNotFoundException;
+import org.example.bookmyshowaugmorning.exceptions.ShowSeatTypeNotFoundException;
+import org.example.bookmyshowaugmorning.exceptions.UserNotFoundException;
 import org.example.bookmyshowaugmorning.models.Booking;
 import org.example.bookmyshowaugmorning.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,20 @@ public class BookingController {
             responseDTO.setBookingId(null);
             responseDTO.setStatus(ResponseStatus.FAILURE);
         }
+        return responseDTO;
+    }
+
+
+    @PostMapping("/bookWithoutHandling")
+    public CreateBookingResponseDTO createBookingWithoutHandling(@RequestBody CreateBookingRequestDTO requestDTO) throws UserNotFoundException, SeatAlreadyBookedException, ShowNotFoundException, ShowSeatTypeNotFoundException {
+        CreateBookingResponseDTO responseDTO = new CreateBookingResponseDTO();
+        Booking booking = bookingService.createBooking(
+                requestDTO.getUserId(),
+                requestDTO.getShowId(),
+                requestDTO.getShowSeatIds()
+        );
+        responseDTO.setBookingId(booking.getId());
+        responseDTO.setStatus(ResponseStatus.SUCCESS);
         return responseDTO;
     }
 }

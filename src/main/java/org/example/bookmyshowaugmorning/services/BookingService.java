@@ -20,10 +20,7 @@ import lombok.Setter;
 import org.example.bookmyshowaugmorning.models.Booking;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -83,6 +80,12 @@ public class BookingService {
             if(status == ShowSeatStatus.BOOKED){
                 throw new SeatAlreadyBookedException("Seat with this ID " + showSeat.getId() + " is already booked!");
             }
+
+            // fresh showseat for me
+            if(status == ShowSeatStatus.AVAILABLE && Objects.isNull(showSeat.getLockedAt())){
+                continue;
+            }
+
             Date currentTime = new Date();
             Date lockedAt = showSeat.getLockedAt();
             Long timeDifference = currentTime.getTime() - lockedAt.getTime();
